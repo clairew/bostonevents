@@ -14,7 +14,10 @@
     "morgan": "~1.6.1",
     "mongodb": "*",
     "monk": "*",
-	"passport": "*",
+    "passport": "*",
+    "passport-facebook": "*",
+    "ejs": "*",
+    "mongoose": "*",
     "serve-favicon": "~2.3.0"
   }
 }
