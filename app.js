@@ -15,6 +15,10 @@ var passport = require('passport');
 
 var route = require('./route');
 
+var mongo = require('mongodb');
+var monk = require('monk');
+var db = monk("mongodb://admin:admin@ds063833.mongolab.com:63833/whack");
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
