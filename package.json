@@ -1,0 +1,26 @@
+{
+  "name": "bostonevents",
+  "version": "1.0.0",
+  "description": "A search engine to list personalized results of events around Boston",
+  "main": "app.js",
+  "scripts": {
+    "test": "npm install express --save"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/clairew/bostonevents.git"
+  },
+  "keywords": [
+    "boston",
+    "events"
+  ],
+  "author": "Anna Richardson, Claire Wang, Jessenia Aguilar-Hernande",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/clairew/bostonevents/issues"
+  },
+  "homepage": "https://github.com/clairew/bostonevents#readme",
+  "dependencies": {
+    "express": "^4.13.3"
+  }
+}
