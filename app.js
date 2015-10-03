@@ -41,7 +41,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 require('./config/passport')(passport); 
 
-app.use(session({ secret: 'whackwhackwhackwhack' })); // session secret
+app.use(session({ 
+  secret: 'whackwhackwhackwhack',
+  resave: false,
+  saveUninitialized: false
+ })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
