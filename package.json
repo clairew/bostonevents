@@ -14,6 +14,7 @@
     "morgan": "~1.6.1",
     "mongodb": "*",
     "monk": "*",
+	"passport": "*",
     "serve-favicon": "~2.3.0"
   }
 }
