@@ -1,22 +1,30 @@
 var express = require('express');
+var session = require('express-session');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var ejs = require('ejs');
-var routes = require('./routes/index');
-var test = require('./routes/test');
-var users = require('./routes/users');
+//var routes = require('./routes/index');
+
+//var test = require('./routes/test');
+//var users = require('./routes/users');
+
 
 //setup mongodb dependencies
-var mongo = require('mongodb');
-var monk = require('monk');
-var db = monk("mongodb://admin:admin@ds063833.mongolab.com:63833/whack");
-///////////////////////////////
-
 var app = express();
 
+var passport = require('passport');
+
+var route = require('./routes/route');
+var db = require('./config/database.js');
+//var monk = require('monk');
+var mongo = require('mongodb');
+var mongoose = require('mongoose');
+//var db = monk("mongodb://admin:admin@ds063833.mongolab.com:63833/whack");
+
+mongoose.connect(db.url);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -29,14 +37,40 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//app.use('/', routes);
+//app.use('/users', users);
+
+require('./config/passport')(passport); 
+
+app.use(session({ secret: 'whackwhackwhackwhack' })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+
+app.get('/', route.index);
+
+app.get('/login', route.login);
+
+
+  // route for facebook authentication and login
+app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
+
+// handle the callback after facebook has authenticated the user
+app.get('/auth/facebook/callback',
+  passport.authenticate('facebook', {
+    successRedirect : '/',  
+    failureRedirect : '/login'
+  }));
+
+// =====================================
+// LOGOUT ==============================
+// =====================================
+app.get('/logout', route.logout);
+
 app.use(function(req,res,next){
     req.db = db;
     next();
 });
 
-app.use('/', routes);
-app.use('/users', users);
-app.use('/test', test);
 
 
 // catch 404 and forward to error handler
@@ -50,6 +84,8 @@ app.use(function(req, res, next) {
 
 // development error handler
 // will print stacktrace
+
+
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
