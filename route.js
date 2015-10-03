@@ -21,6 +21,9 @@ var logout = function(req, res) {
   res.redirect('/');
 };
 
+
+//****************************************************************//
+
 module.exports.index = index;
 
 module.exports.login = login;
