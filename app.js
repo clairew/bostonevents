@@ -7,7 +7,16 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var ejs = require('ejs');
 var routes = require('./routes/index');
+
+//var test = require('./routes/test');
 //var users = require('./routes/users');
+
+
+//setup mongodb dependencies
+var mongo = require('mongodb');
+var monk = require('monk');
+var db = monk("mongodb://admin:admin@ds063833.mongolab.com:63833/whack");
+///////////////////////////////
 
 var app = express();
 
@@ -59,6 +68,11 @@ app.get('/auth/facebook/callback',
 // LOGOUT ==============================
 // =====================================
 app.get('/logout', route.logout);
+
+app.use(function(req,res,next){
+    req.db = db;
+    next();
+});
 
 
 
