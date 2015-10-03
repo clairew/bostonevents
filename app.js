@@ -12,7 +12,7 @@ var users = require('./routes/users');
 //setup mongodb dependencies
 var mongo = require('mongodb');
 var monk = require('monk');
-var db = monk("mongodb://<dbuser>:<dbpassword>@ds063833.mongolab.com:63833/whack");
+var db = monk("mongodb://admin:admin@ds063833.mongolab.com:63833/whack");
 ///////////////////////////////
 
 var app = express();
