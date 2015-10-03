@@ -6,10 +6,10 @@ router.get('/', function(req, res) {
     var db = req.db;	
     var collection = db.get('users');
 
-    collection.find({},{},function(e,docs){
-        res.render('test', {
-            "title": "testPage",
-            "users": docs
+    collection.find({},{},function(e,doc){
+        res.render('user', {
+            "title": "Profile",
+            "user": doc
         });
     });
 });
