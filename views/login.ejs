@@ -1,17 +1,10 @@
-<div class="container">
+<%- include layout.ejs %>
 
-<div class="col-sm-6 col-sm-offset-3">
+<div class="container">
 
 	<h1>Login</h1>
 
-	<!-- show any messages that come back with authentication -->
-	<% if (message.length > 0) { %>
-		<div class="alert alert-danger"><%= message %></div>
-	<% } %>
-
 	<a href="/auth/facebook" class="btn btn-lg btn-primary"><span class="fa fa-facebook icon"></span> Login with Facebook</a>
-
-</div>
 
 </div>
 </body>

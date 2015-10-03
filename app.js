@@ -7,11 +7,13 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var ejs = require('ejs');
 var routes = require('./routes/index');
-var users = require('./routes/users');
+//var users = require('./routes/users');
 
 var app = express();
 
 var passport = require('passport');
+
+var route = require('./route');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -28,9 +30,31 @@ app.use(express.static(path.join(__dirname, 'public')));
 //app.use('/', routes);
 //app.use('/users', users);
 
+require('./passport')(passport); 
+
 app.use(session({ secret: 'whackwhackwhackwhack' })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
+
+app.get('/', route.index);
+
+app.get('/login', route.login);
+
+
+  // route for facebook authentication and login
+app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
+
+// handle the callback after facebook has authenticated the user
+app.get('/auth/facebook/callback',
+  passport.authenticate('facebook', {
+    successRedirect : '/error',  //change this later to another file
+    failureRedirect : '/'
+  }));
+
+// =====================================
+// LOGOUT ==============================
+// =====================================
+app.get('/logout', route.logout);
 
 
 
@@ -65,29 +89,6 @@ app.use(function(err, req, res, next) {
     message: err.message,
     error: {}
   });
-});
-
-app.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
-
-
-  // route for facebook authentication and login
-app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
-
-// handle the callback after facebook has authenticated the user
-app.get('/auth/facebook/callback',
-  passport.authenticate('facebook', {
-    successRedirect : '/error',  //change this later to another file
-    failureRedirect : '/'
-  }));
-
-// =====================================
-// LOGOUT ==============================
-// =====================================
-app.get('/logout', function(req, res) {
-  req.logout();
-  res.redirect('/');
 });
 
 
