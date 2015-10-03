@@ -6,28 +6,25 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var ejs = require('ejs');
-var routes = require('./routes/index');
+//var routes = require('./routes/index');
 
 //var test = require('./routes/test');
 //var users = require('./routes/users');
 
 
 //setup mongodb dependencies
-var mongo = require('mongodb');
-var monk = require('monk');
-var db = monk("mongodb://admin:admin@ds063833.mongolab.com:63833/whack");
-///////////////////////////////
-
 var app = express();
 
 var passport = require('passport');
 
-var route = require('./route');
-
+var route = require('./routes/route');
+var db = require('./config/database.js');
+//var monk = require('monk');
 var mongo = require('mongodb');
-var monk = require('monk');
-var db = monk("mongodb://admin:admin@ds063833.mongolab.com:63833/whack");
+var mongoose = require('mongoose');
+//var db = monk("mongodb://admin:admin@ds063833.mongolab.com:63833/whack");
 
+mongoose.connect(db.url);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -43,7 +40,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //app.use('/', routes);
 //app.use('/users', users);
 
-require('./passport')(passport); 
+require('./config/passport')(passport); 
 
 app.use(session({ secret: 'whackwhackwhackwhack' })); // session secret
 app.use(passport.initialize());
@@ -60,8 +57,8 @@ app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' })
 // handle the callback after facebook has authenticated the user
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook', {
-    successRedirect : '/error',  //change this later to another file
-    failureRedirect : '/'
+    successRedirect : '/',  
+    failureRedirect : '/login'
   }));
 
 // =====================================
