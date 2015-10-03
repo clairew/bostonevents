@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var ejs = require('ejs');
 var routes = require('./routes/index');
+var test = require('./routes/test');
 var users = require('./routes/users');
 
 //setup mongodb dependencies
@@ -35,6 +36,7 @@ app.use(function(req,res,next){
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/test', test);
 
 
 // catch 404 and forward to error handler
