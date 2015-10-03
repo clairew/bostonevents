@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 var ejs = require('ejs');
 //var routes = require('./routes/index');
 
-//var test = require('./routes/test');
+var test = require('./routes/test');
 //var users = require('./routes/users');
 
 
@@ -19,10 +19,9 @@ var passport = require('passport');
 
 var route = require('./routes/route');
 var db = require('./config/database.js');
-//var monk = require('monk');
+
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
-//var db = monk("mongodb://admin:admin@ds063833.mongolab.com:63833/whack");
 
 mongoose.connect(db.url);
 // view engine setup
@@ -60,7 +59,6 @@ app.get('/auth/facebook/callback',
     successRedirect : '/',  
     failureRedirect : '/login'
   }));
-
 // =====================================
 // LOGOUT ==============================
 // =====================================
