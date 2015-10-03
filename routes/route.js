@@ -1,9 +1,18 @@
 
 var index = function(req, res, next) {
-  if (req.isAuthenticated()){
-    res.render('index', { title: 'Home' });
-  } else {
+  if (!req.isAuthenticated()){
     res.redirect('/login');
+  } else {
+    res.render('index', { title: 'Home' });
+  }
+};
+
+
+var accounts = function(req, res, next) {
+  if (!req.isAuthenticated()){
+    res.redirect('/login');
+  } else {
+    res.render('accounts', { title: 'Accounts' });
   }
 };
 
@@ -28,3 +37,5 @@ module.exports.index = index;
 module.exports.login = login;
 
 module.exports.logout = logout;
+
+module.exports.accounts = accounts;

@@ -53,7 +53,7 @@ app.get('/', route.index);
 
 app.get('/login', route.login);
 
-
+app.get('/accounts', route.accounts);
   // route for facebook authentication and login
 app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email'}));
 
