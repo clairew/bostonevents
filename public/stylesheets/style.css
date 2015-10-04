@@ -1,6 +1,7 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: 'Roboto Condensed', sans-serif;
 }
 
 a {
@@ -19,4 +20,38 @@ a {
 
 .icon {
 	height: 48px;
+}
+.btn-google {
+	background-color: #dc4e41;
+	color: white;
+}
+.btn-facebook {
+	background-color: #3b5998;
+	color: white;
+}
+.btn-twitter {
+	background-color: #55acee;
+	color: white;
+}
+.btn-pinterest {
+	background-color: #bd081c;
+	color: white;
+}
+.btn-google,
+.btn-facebook,
+.btn-twitter,
+.btn-pinterest {
+	width: 300px;
+	margin: 0 auto;
+	margin-top: 15px;
+	display: block;
+
+}
+
+.icon {
+	padding-right: 5px;
+}
+
+.jumbotron {
+	background: none;
 }
